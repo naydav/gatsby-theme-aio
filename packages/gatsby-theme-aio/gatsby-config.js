@@ -112,7 +112,8 @@ module.exports = {
         queries: algoliaQueries,
         chunkSize: 1000, // default: 1000
         enablePartialUpdates: true, // default: false
-        matchFields: [process.env.REPO_NAME], // Array<String> default: ['modified']
+        matchFields: ['modified'], // Array<String> default: ['modified']
+        fetchFilters: `_tags:${process.env.REPO_NAME}`, // Only retrieve the current repo's records. Prevents deletion of other repo records.
         concurrentQueries: false, // default: true
         skipIndexing: ALGOLIA_INDEXING_MODES[algoliaIndexingMode][0], // default: true
         dryRun: ALGOLIA_INDEXING_MODES[algoliaIndexingMode][1], // default: false
@@ -125,7 +126,6 @@ module.exports = {
           attributeForDistinct: 'url',
           snippetEllipsisText: '…',
           attributesToRetrieve: [
-            process.env.REPO_NAME, // Only retrieve the current repo's records. Prevents deletion of other repo records.
             'title',
             'contentHeading',
             'description',

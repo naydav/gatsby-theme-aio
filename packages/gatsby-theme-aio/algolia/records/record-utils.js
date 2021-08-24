@@ -52,8 +52,9 @@ const createAlgoliaRecords = (node, records) => {
       url: getUrl(slug, node, record),
       absoluteUrl: getAbsoluteUrl(slug, node, record),
       customRanking: record.customRanking ?? '',
+      'modified': contentDigest,
       // TODO: model should not have dependencies on env vars (should be wrapped in config object)
-      [process.env.REPO_NAME]: contentDigest
+      '_tags': [process.env.REPO_NAME],
     };
     return algoliaRecord;
   });
